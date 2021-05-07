@@ -1,0 +1,24 @@
+<%= render 'layouts/header' %>
+
+<br>
+<div class="row">
+<% @Currencies_hash.each do |symbol, price| %>  
+  <div class="col-sm-3">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title"><%=symbol%></h5>
+        <p class="card-text"><%=price%></p>
+        <% if logged_in? %>
+        <%= form_with(url: root_path, scope: :session, local: true) do |f| %>
+        <%= f.submit "Favorite", class: " mt-2 btn btn-primary" %>
+        <input type="hidden" id="symbol" name="symbol" value=<%=symbol%>>
+        <% end %>
+        <% else %>
+        <%= link_to "Log in to access more features", login_path, class: "btn btn-outline-primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  
+</div>
