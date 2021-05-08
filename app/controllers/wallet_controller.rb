@@ -2,11 +2,13 @@ require 'http'
 require 'json'
 class WalletController < ApplicationController
     def Mywallet 
-        @portoflio = Stock.where(user: current_user)
-        @portoflio.each do |stock|
+        @portoflio = Array.new
+        @user_coins = Coin.where(user: current_user)
+        @user_coins.each do |stock|
         @stocks = HTTP.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + stock.symbol).body.to_s
         @stocks = JSON.parse(@stocks)
-        p @stocks
+        @portoflio.push(@stocks)
+        p @portoflio
         end
         end
 

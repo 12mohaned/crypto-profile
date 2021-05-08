@@ -11,14 +11,9 @@ class HomesController < ApplicationController
     end
 
     def create_stock
-        stock = Stock.new
-        stock.symbol = params[:symbol]
-        stock.user = current_user
-        stock.save
-        # stock.user_id = current_user
-        # p stock
-        # stock.save
+        coin = Coin.new
+        coin.symbol = params[:symbol]
+        coin.user = current_user
+        coin.save
     end
-
-
 end

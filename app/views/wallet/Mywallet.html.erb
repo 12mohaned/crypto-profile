@@ -1,4 +1,6 @@
 <%= render 'layouts/header' %>
+<br>
+<div class="table-responsive">
 <table class="table">
   <thead>
     <tr>
@@ -20,11 +22,25 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row"></th>
-      <td>symbol</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
+    <% @portoflio.each do |symbol| %>  
 
-  </tbody>
+      <th scope="row"><%=symbol['symbol']%></th>
+      <td><%=symbol['symbol']%></td>
+      <td><%=symbol['priceChange']%></td>
+      <td><%=symbol['priceChangePercent']%></td>
+      <td><%=symbol['weightedAvgPrice']%></td>
+      <td><%=symbol['lastPrice']%></td>
+      <td><%=symbol['lastQty']%></td>
+      <td><%=symbol['bidPrice']%></td>
+      <td><%=symbol['bidQty']%></td>
+      <td><%=symbol['askPrice']%></td>
+      <td><%=symbol['askQty']%></td>
+      <td><%=symbol['openPrice']%></td>
+      <td><%=symbol['highPrice']%></td>
+      <td><%=symbol['lowerprice']%></td>
+      <td><%=symbol['volume']%></td>
+    </tr>
+    <% end %>
+      </tbody>
 </table>
+</div>
