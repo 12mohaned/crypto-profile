@@ -1,4 +1,4 @@
 class Coin < ApplicationRecord
   belongs_to :user
-  self.primary_key = "symbol"
+  validates :symbol, presence: true, uniqueness: { case_sensitive: false }
 end
