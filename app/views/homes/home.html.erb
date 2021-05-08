@@ -1,5 +1,4 @@
 <%= render 'layouts/header' %>
-
 <br>
 <div class="row">
 <% @Currencies_hash.each do |symbol, price| %>  
@@ -7,6 +6,9 @@
     <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title"><%=symbol%></h5>
+        <i class="cf-<%=symbol[0..2].downcase%>  cf-2x"></i>  
+        <i class="cf-<%=symbol[0..3].downcase%>  cf-2x"></i>
+        <i class="cf-<%=symbol[0..4].downcase%>  cf-2x"></i>
         <p class="card-text"><%=price%></p>
         <% if logged_in? %>
         <%= form_with(url: root_path, scope: :session, local: true) do |f| %>
