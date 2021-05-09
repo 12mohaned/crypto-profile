@@ -8,7 +8,6 @@ class WalletController < ApplicationController
         @stocks = HTTP.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + stock.symbol).body.to_s
         @stocks = JSON.parse(@stocks)
         @portoflio.push(@stocks)
-        p @portoflio
         end
         end
 
