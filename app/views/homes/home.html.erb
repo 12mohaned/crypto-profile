@@ -1,11 +1,11 @@
 <%= render 'layouts/header' %>
 <br>
 
-<nav class="navbar navbar-dark bg-light">
+<nav class="navbar navbar-dark bg-secondary">
   <div class="container">
   <% @featured_coins.each do |symbol, name| %>   
-    <i class="cf-<%=name['symbol'].downcase[0..name['symbol'].length-5]%> cf-2x"></i> 
-    <%=name['price']%>$
+    <i style="color:white;" class="cf-<%=name['symbol'].downcase[0..name['symbol'].length-5]%> cf-2x"></i> 
+    <p style="color:black;"><%=name['price']%>$</p>
     <% end %>
   </div>
 </nav>
