@@ -1,15 +1,23 @@
 <%= render 'layouts/header' %>
 <br>
+
 <% if logged_in? %>
+
 <nav class="navbar navbar-dark bg-light">
   <div class="container">
   <% @featured_coins.each do |symbol, name| %>   
     <i style="color:rgb(12, 12, 12);" class="cf-<%=name['symbol'].downcase[0..name['symbol'].length-5]%> cf-2x"></i> 
     <p style="color:rgb(12, 12, 12);"><%=name['price']%>$</p>
+    <% if @prices_change[@featured_index] %> 
+    <i style="color:rgb(0, 128, 0);" class="bi bi-arrow-up"></i>
+    <% else %>
+    <i style="color:rgb(255, 0, 0);" class="bi bi-arrow-down"></i>
     <% end %>
-  </div>
+    <%@featured_index+=1%> 
+    <% end %>
+      </div>
+  <% end %> 
 </nav>
-<% end %>
 <br>
 <div class="row">
 <% @Currencies_hash.each do |symbol, price| %>  
