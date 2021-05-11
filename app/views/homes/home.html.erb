@@ -1,14 +1,15 @@
 <%= render 'layouts/header' %>
 <br>
-
-<nav class="navbar navbar-dark bg-secondary">
+<% if logged_in? %>
+<nav class="navbar navbar-dark bg-light">
   <div class="container">
   <% @featured_coins.each do |symbol, name| %>   
-    <i style="color:white;" class="cf-<%=name['symbol'].downcase[0..name['symbol'].length-5]%> cf-2x"></i> 
-    <p style="color:black;"><%=name['price']%>$</p>
+    <i style="color:rgb(12, 12, 12);" class="cf-<%=name['symbol'].downcase[0..name['symbol'].length-5]%> cf-2x"></i> 
+    <p style="color:rgb(12, 12, 12);"><%=name['price']%>$</p>
     <% end %>
   </div>
 </nav>
+<% end %>
 <br>
 <div class="row">
 <% @Currencies_hash.each do |symbol, price| %>  
