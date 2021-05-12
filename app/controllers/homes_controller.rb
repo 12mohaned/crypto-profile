@@ -34,17 +34,17 @@ class HomesController < ApplicationController
     
     #Calculate the change in price and determine whether featured prices increased or decreased
     def calculate_avg_price(featured_coins, num)
-        $i = 0
-        $num = 5
+        @change_rate
         @prices_change = Array.new
         @featured_coins.each do |name, symbol|
         @stocks = HTTP.get("https://api.binance.com/api/v3/ticker/24hr?symbol=" + symbol['symbol']).body.to_s
         @stocks = JSON.parse(@stocks)
         if @stocks['priceChangePercent'].to_f > 0
-            @prices_change.push(true) 
+            @change_rate = true 
         else
-            @prices_change.push(false)
+            @change_rate = false
         end
+        @prices_change.push(@change_rate)
     end
     end
 
