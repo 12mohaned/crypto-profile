@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root to: 'homes#home'
   get '/signup', to: 'users#new'
   get    '/login',   to: 'sessions#new'
+  get    '/places',   to:  'locations#categories'
+  get '/places/:category', to: 'locations#venues'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 

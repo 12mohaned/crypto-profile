@@ -1,0 +1,13 @@
+<%= render 'layouts/header' %>
+
+<div class="row">
+<% @categories.each do |category| %>  
+  <div class="col-sm-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title"><%=category%></h5>
+        <%= link_to "View", login_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
