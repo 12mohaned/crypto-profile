@@ -1,2 +1,5 @@
 module LocationsHelper
+
+
+
 end

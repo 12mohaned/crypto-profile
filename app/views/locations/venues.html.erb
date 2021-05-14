@@ -1,1 +1,12 @@
 <%= render 'layouts/header' %>
+
+<div class="row">
+<% @venues.each do |name,location| %>  
+  <div class="col-sm-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title"><%=name%></h5>
+      </div>
+    </div>
+  </div>
+  <% end %>

@@ -4,10 +4,10 @@ require 'json'
 class LocationsController < ApplicationController
 def venues 
     category = params[:category]
-    @venues = []
-    if get_categories.include?(category)
+    @venues = Hash.new
+    if categories.include?(category) 
         get_venues().each do |venue|
-            venue['category'].eql?(category) ? @venues.push(venue) : @venues
+        @venues[venue['name']] = getLocation(venue['lat'],venue['lon'])
         end
     end
 end
@@ -18,7 +18,7 @@ def categorize(venues)
     venues = venues['venues']
     venues.each do |venue|
     filters = filter_category()
-    if ! filters.include?(venue['category']) & filter(venue['name'])
+    if ! filters.include?(venue['category'])
         categories.add(venue['category'])
     end
     end
@@ -26,17 +26,8 @@ def categorize(venues)
 
 end
 
-#Return location of place given its latitude and longitude
-def getLocation(latitude, longitude)
-    lat = "latitude"
-    lon = "longitude"
-    lat_lon = "#{latitude},#{longitude}"
-    response = Geocoder.search(lat_lon).first
-    return response.city if response.present?
-end
-
 def filter_category
-    tags = Set["nightlife","adult","entertainment","sex","beer","wine","whiskey","weed","pork"]
+    tags = Set["nightlife","adult","entertainment","sex","beer","wine","whiskey","weed","pork","liquor","spirits","smoke"]
     return tags
     end
 
@@ -50,7 +41,7 @@ def filter(name)
     return true
 end
 
-def get_categories
+def categories
     @Venues = HTTP.get("https://coinmap.org/api/v1/venues/").body.to_s
     @categories = categorize(JSON.parse(@Venues))
     return @categories
@@ -61,5 +52,10 @@ def get_venues
     return JSON.parse(@Venues)['venues']
     end
 
-end
+#Return location of place given its latitude and longitude
+def getLocation(latitude, longitude)
+    response = Geocoder.search([latitude,longitude]).first.address
+    return response if response.present?
+    end
 
+end
