@@ -3,11 +3,15 @@ require 'json'
 
 class LocationsController < ApplicationController
 def venues 
-    category = params[:category]
+    @category = params[:category]
     @venues = Hash.new
-    if categories.include?(category) 
+    if categories.include?(@category) 
         get_venues().each do |venue|
-        @venues[venue['name']] = getLocation(venue['lat'],venue['lon'])
+            # @location_name = get_location(venue['lat'],venue['lon'])
+            # if @location_name == nil
+            #     @location_name = create_location(venue['lat'],venue['lon'])
+            # @venues[venue['name']] = @location_name
+            # end
         end
     end
 end
@@ -29,7 +33,7 @@ end
 def filter_category
     tags = Set["nightlife","adult","entertainment","sex","beer","wine","whiskey","weed","pork","liquor","spirits","smoke"]
     return tags
-    end
+end
 
 #filter venues names according to filter set
 def filter(name)
@@ -50,12 +54,22 @@ end
 def get_venues 
     @Venues = HTTP.get("https://coinmap.org/api/v1/venues/").body.to_s
     return JSON.parse(@Venues)['venues']
-    end
+end
 
 #Return location of place given its latitude and longitude
-def getLocation(latitude, longitude)
+def Locate(latitude, longitude)
+    p latitude
     response = Geocoder.search([latitude,longitude]).first.address
     return response if response.present?
-    end
+end
+
+def create_location(lat,lon)
+    location = Location.create(name: Locate(lat,lon), latitude: lat,longitude: lon)
+    return location.name
+end
+
+def get_location(lat,long)
+    return Location.find_by(latitude:lat, longitude:long)
+end
 
 end
